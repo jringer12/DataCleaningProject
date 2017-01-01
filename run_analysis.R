@@ -1,5 +1,3 @@
-setwd("C:\\Users\\James\\Desktop\\DataScience\\Data_Cleaning\\Project\\UCI HAR Dataset")
-
 library(dplyr)
 library(reshape2)
 #read in data for subjects in test group
@@ -44,3 +42,7 @@ x_mean_std$activity <- dplyr::recode(x_mean_std$activity,
 variable_means <- x_mean_std %>% group_by(activity,subject) %>% summarise_each(funs(mean))
 variable_means <- melt(variable_means,id.vars=c("activity","subject"))
 variable_means <- rename(variable_means, mean=value)
+
+#Write data set to txt file
+filename <- "C:/Users/James/Desktop/DataScience/Data_Cleaning/Project/DataCleaningProject/TidyDataOfAverages.txt"
+write.table(variable_means, file=filename, row.name=FALSE)
